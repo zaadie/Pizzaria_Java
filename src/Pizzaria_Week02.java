@@ -6,6 +6,8 @@
 // Begin PizzaOrder.java
 
 import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 
 /* Author: Zaadie Fourie
@@ -29,6 +31,10 @@ public class Pizzaria_Week02 {
 	// Calculates the cost of a fixed pizza order
 	public static void main(String[] args) {
 		
+		// Initialze en Locale
+		Locale locale = new Locale("en", "US");
+		NumberFormat cf = NumberFormat.getCurrencyInstance(locale);
+		
 		// Initialize scanner to read order input
 		Scanner sc = new Scanner(System.in);
 		
@@ -46,12 +52,14 @@ public class Pizzaria_Week02 {
 		int toppings = 0;
 		int amount = 0;
 
-		System.out.println("Please place the order for your pizza.");
 		
 		
 		while (orderMore == 'y') {
+			
+			System.out.println("Please place the order for your pizza.");
 			// Prompt user for pizza size
 			System.out.println("Size (s = small, l = large, f = family).");
+			
 			
 			// Initialise pizza size.
 			size = sc.next().charAt(0);
@@ -82,7 +90,7 @@ public class Pizzaria_Week02 {
 				// Update order price
 				order += sPizzaPrice;
 				// Display pizza cost
-				System.out.println("Pizza cost is: $" + sPizzaPrice);
+				System.out.println("Pizza cost is: " + cf.format(sPizzaPrice));
 
 			} 
 			// Large Pizza Maker
@@ -110,7 +118,7 @@ public class Pizzaria_Week02 {
 				order += lPizzaPrice;
 				
 				// Display pizza cost
-				System.out.println("Pizza cost is: $" + lPizzaPrice);
+				System.out.println("Pizza cost is: " + cf.format(lPizzaPrice));
 			} 
 			// Family Pizza Maker
 			else if (size == 'f') {
@@ -137,7 +145,7 @@ public class Pizzaria_Week02 {
 				order += fPizzaPrice;
 				
 				// Display pizza cost
-				System.out.println("Pizza cost is: $" + fPizzaPrice);
+				System.out.println("Pizza cost is: " + cf.format(fPizzaPrice));
 			} 
 			// If an incorrect char value is entered notify user.
 			else {
@@ -149,7 +157,7 @@ public class Pizzaria_Week02 {
 		}
 	
 			// Print pizza(s) cost
-			System.out.println("Total cost is: $" + order);
+			System.out.println("Total cost is: " + cf.format(order));
 			
 			System.out.println("Thank you for your order!");
 			
