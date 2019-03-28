@@ -33,48 +33,20 @@ public class Pizza {
 		}
 		 public String setbaseSize() {
 			 Scanner sc = new Scanner(System.in);
-			 System.out.println("Size (s = small, l = large, f = family):");
+			 System.out.print("Size (s = small, l = large, f = family):");
 			 baseSize = sc.nextLine();
 			 return baseSize;
 		 }
 		 
 		 public int setNumToppings() {
-			 System.out.println("Number of toppings: ");
+			 System.out.print("Number of toppings: ");
 			 numToppings = sc.nextInt();
 			 return numToppings;
 		 }
 		 public int setQuantity() {
-			 System.out.println("Quantity: ");
+			 System.out.print("Quantity: ");
 			 quantity = sc.nextInt();
 			 return quantity;
-		 }
-		 public double setBaseCost() {
-			 switch (baseSize) {
-			case "s":
-				baseCost = SMALL_BASE_PRICE;
-				break;
-			case "l":
-				baseCost = LARGE_BASE_PRICE;
-				break;
-			case "f":
-				baseCost = FAMILY_BASE_PRICE;
-				break;
-			}
-			 return baseCost;
-		 }
-		 public double setToppingCost() {
-			 switch (baseSize) {
-			case "s":
-				toppingCost = SMALL_TOPPING_PRICE;
-				break;
-			case "l":
-				toppingCost = LARGE_TOPPING_PRICE;
-				break;
-			case "f":
-				toppingCost = FAMILY_TOPPING_PRICE;
-				break;
-			}
-			 return baseCost;
 		 }
 		 public double setOrderTotal() {
 			 orderTotal += pizzaCost;
@@ -97,8 +69,19 @@ public class Pizza {
 		}
 		
 		public double calculateCost() {
-			setBaseCost();
-			setToppingCost();
+			switch (baseSize) {
+			case "s":
+				baseCost = SMALL_BASE_PRICE;
+				toppingCost = SMALL_TOPPING_PRICE;
+				break;
+			 default:
+				baseCost = LARGE_BASE_PRICE;
+				toppingCost = LARGE_TOPPING_PRICE;
+				break;
+			case"f":
+				baseCost = FAMILY_BASE_PRICE;
+				toppingCost = FAMILY_TOPPING_PRICE;
+			}
 			pizzaCost = ((baseCost + (numToppings * toppingCost)) * quantity);
 			return pizzaCost;
 		}	
@@ -108,24 +91,31 @@ public class Pizza {
 			Scanner sc = new Scanner(System.in);
 			setOrderTotal();
 
-			System.out.println("Order more? (y/n):");
+			System.out.print("Order more? (y/n):");
+			System.out.println();
+
+			
 			orderAgain = sc.nextLine();
 			if (orderAgain.equals("y")) {
 				pizzaOrder();
 			} else {
-				System.out.println("Total cost is " + nf.format(getOrderTotal()));
+				System.out.println();
+				System.out.println();
+				System.out.println("Total cost is " + nf.format(orderTotal));
 				System.out.println("Thank you for your order!");
 			}
 		}
 		public void pizzaOrder() {
+			System.out.println("Please place the order for your pizza");
 			setbaseSize();
 			setNumToppings();
 			setQuantity();
 			calculateCost();
-			
-			System.out.print("baseSize = " + getBaseSize() + ", numToppings = "
-					+ getNumToppings() + ", quantity = " + getQuantity() + " costs ");
-			System.out.println(nf.format(calculateCost()));
+			System.out.print("Pizza (baseSize = " + getBaseSize() + ", numToppings = "
+					+ getNumToppings() + ", quantity = " + getQuantity()+ ") "+ " costs ");
+			System.out.println(nf.format(pizzaCost));
+		
 			orderAgain();
+			
 		}
 }
